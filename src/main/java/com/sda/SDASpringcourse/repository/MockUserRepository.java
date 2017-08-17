@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by RENT on 2017-08-16.
@@ -26,20 +27,32 @@ public class MockUserRepository implements UserRepository {
     }
 
     @Override
+    public List<User> getAllByLastName(String lastName) {
+
+        List<User> outputList = users.stream()
+                .filter(e -> e.getLastName().startsWith(lastName))
+                .collect(Collectors.toList());
+
+        return outputList;
+    }
+
+    @Override
     public User getById(Integer id) {
         return users.get(id);
     }
 
-    //tak oadnotowana metoda zostanie uruchomiona tuz po utworzeniu obiektu tej klasy
+    //tak oadnotowana metoda zostanie uruchomiona tuz po utworzeniu obiektu tej klasy przez Springa
     //zapełni ona liste userow mockowymi danymi
     @PostConstruct
     public void init() {
-        User user = new User(1, "Bartek", "Mytko", "123456789");
+        User user0 = new User(0, "Jan", "Kowalski", "123456789");
+        User user1 = new User(1, "Bartek", "Mytko", "123456789");
         User user2 = new User(2, "Maria", "Mytko", "987654321");
         User user3 = new User(3, "Ewa", "Mytko", "147258369");
         User user4 = new User(4, "Mieczysław", "Mytko", "741852963");
 
-        users.add(user);
+        users.add(user0);
+        users.add(user1);
         users.add(user2);
         users.add(user3);
         users.add(user4);

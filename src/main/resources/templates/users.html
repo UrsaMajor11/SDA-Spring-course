@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello world!</title>
+</head>
+<body>
+<h1>Poniżej lista pasujących userów...</h1>
+
+<hr/>
+<div th:if="${allUsers}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial-->
+
+    <ul>
+        <!--/*@thymesVar id="allUsers" type="java.util.List"*/-->
+        <li th:each="user : ${allUsers}">
+            <h1 th:text="${user.firstName} + ' ' + ${user.lastName}">John Kowalsky</h1>
+            <p th:text="'Phone number: ' + ${user.phoneNumber}">Phone number: 123 456 789</p>
+        </li>
+    </ul>
+
+</div>
+
+
+</body>
+</html>
