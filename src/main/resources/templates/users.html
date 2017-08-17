@@ -13,6 +13,7 @@
     <ul>
         <!--/*@thymesVar id="allUsers" type="java.util.List"*/-->
         <li th:each="user : ${allUsers}">
+            <a th:href="'/test/users/' + ${user.id}" href="#">Go to profile</a>
             <h1 th:text="${user.firstName} + ' ' + ${user.lastName}">John Kowalsky</h1>
             <p th:text="'Phone number: ' + ${user.phoneNumber}">Phone number: 123 456 789</p>
         </li>
