@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello world!</title>
+</head>
+<body>
+<h1>Widok pojedynczego newsa...</h1>
+
+<a th:href="'/news'" href="#">Powrót do listy</a>
+
+<hr/>
+
+<div th:if="${singleNews}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial, w przeciwnym razie przy probie wyswietlenia dostaniemu null pointer exception -->
+    <h2 th:text="${singleNews.title}">Title of news</h2>
+    <p th:text="${singleNews.description}">Description of news</p>
+    <img th:src="${singleNews.bigImgLink}"
+         src="http://www.dailyworldfacts.com/wp-content/uploads/2011/06/facts-about-cat-fallen-cat.jpg"/>
+</div>
+
+</body>
+</html>
