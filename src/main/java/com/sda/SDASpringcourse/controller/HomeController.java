@@ -1,7 +1,5 @@
 package com.sda.SDASpringcourse.controller;
 
-import com.sda.SDASpringcourse.model.User;
-import com.sda.SDASpringcourse.repository.UserRepository;
 import com.sda.SDASpringcourse.service.ReverseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +19,9 @@ public class HomeController {
     private ReverseService reverseService;
 
     @Autowired
-    private ReverseService reverseServiceUppercaseOnly;
+    private ReverseService reverseWithSwapCaseService;
 
-    @Autowired
-    private UserRepository userRepository;
+    //1 - prosty endpoint, wyswietlamy html-a i przesylamy dwie zmienne
 
     @RequestMapping(path = "/home")
     public ModelAndView home() {
@@ -36,6 +33,8 @@ public class HomeController {
 
         return modelAndView;
     }
+
+    //2 - endpoint z parametrem o nazwie "s", po przejsciu w przegladarce pod taka sciezke powinnismy otrzymac odwrocony string
 
     @RequestMapping(path = "/home", params = {"s"})
     public ModelAndView home(@RequestParam(value = "s", required = true) String s) {
@@ -49,12 +48,15 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(path = "/home", params = {"s", "lowercase"})
-    //musi przyjscparametr lowercase, ale jego wartosc nas nie interesuje
-    public ModelAndView homeLowerCase(@RequestParam(value = "s", required = true) String s) {
+    //2 - endpoint z parametrem o nazwie "s" i dodatkowym parametrem - flagą, po przejsciu w przegladarce pod taka sciezke powinnismy otrzymac odwrocony string z zamieniona wielkoscia liter
+
+    @RequestMapping(path = "/home", params = {"s", "swap"})
+    //musi przyjsc parametr swap, ale jego wartosc nas nie interesuje, wiec nawet nie przekazujemy go do metody
+    public ModelAndView homeSwitchCase(@RequestParam(value = "s", required = true) String s) {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        String reversedString = reverseServiceUppercaseOnly.reverseString(s);
+        //teraz do odwrocenia stringa uzywam innego beana, ktory dodatkowo zamieni ielkosc liter
+        String reversedString = reverseWithSwapCaseService.reverseString(s);
 
         System.out.println(reversedString);
         modelAndView.addObject("reversedString", reversedString);
@@ -62,25 +64,19 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home/{value}") //przekazywanie parametru inna metoda
+    //3 - przyklad na inny sposob przekazywania parametrow do endpointu, poza tym ten przyklad jest analogiczny do endpointu 2
+
+    @RequestMapping(value = "/home/{value}")
     public ModelAndView homeParam(@PathVariable("value") String param) {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        System.out.println(param);
-        modelAndView.addObject("reversedString", param);
+        String reversedString = reverseService.reverseString(param);
+
+        System.out.println(reversedString);
+        modelAndView.addObject("reversedString", reversedString);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/user/{userId}") //przekazywanie parametru inna metoda
-    public ModelAndView userParam(@PathVariable("userId") Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("index");
 
-        User user = userRepository.getById(userId);
-
-        System.out.println(userId);
-        modelAndView.addObject("user", user);
-
-        return modelAndView;
-    }
 }

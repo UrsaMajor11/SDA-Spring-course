@@ -13,11 +13,15 @@ import org.springframework.context.annotation.Profile;
 //@Profile("dev")
 public class ServiceConfig {
 
+    //klasa do rejestrowania Beanów
+
+
+    //drugi bean klasy ReverseService - tym razem tak skonfigurowany, zeby dodatkowo zamienial wielkosc liter
+    //(pierwszy bean tej klasy zarejestrowalismy przy niej samej, adnotacją @Component)
     @Bean
-    public ReverseService reverseServiceUppercaseOnly() {
+    public ReverseService reverseWithSwapCaseService() {
         ReverseService reverseService = new ReverseService();
-        reverseService.setUppercase(true);
-        reverseService.setLowercase(false);
+        reverseService.setMakeSwapCase(true);
         return reverseService;
     }
 

@@ -10,26 +10,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReverseService {
 
-    private boolean uppercase;
-    private boolean lowercase;
+    private boolean makeSwapCase;
 
-    public void setUppercase(boolean uppercase) {
-        this.uppercase = uppercase;
-    }
-
-    public void setLowercase(boolean lowercase) {
-        this.lowercase = lowercase;
+    public void setMakeSwapCase(boolean makeSwapCase) {
+        this.makeSwapCase = makeSwapCase;
     }
 
     public String reverseString(String input) {
 
-        if (uppercase) {
+        if (makeSwapCase) {
             String reverse = StringUtils.reverse(input);
             return StringUtils.swapCase(reverse);
-        }
-
+        } else {
             return StringUtils.reverse(input);
-//            return new StringBuilder(input).reverse().toString();
+            //return new StringBuilder(input).reverse().toString();
+        }
     }
 
 }

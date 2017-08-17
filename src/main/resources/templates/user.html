@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello world!</title>
+</head>
+<body>
+<h1>Hello world!</h1>
+
+<hr/>
+<!--/*@thymesVar id="user" type="com.sda.SDASpringcourse.model.User"*/-->
+<div th:if="${user}">
+    <h2 th:text="${user.firstName}">First Name</h2>
+    <h2 th:text="${user.lastName}">First Name</h2>
+    <h2 th:text="${user.phoneNumber}">First Name</h2>
+</div>
+
+</body>
+</html>
