@@ -1,6 +1,8 @@
 package com.sda.SDASpringcourse.controller;
 
+import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.model.User;
+import com.sda.SDASpringcourse.repository.NewsRepository;
 import com.sda.SDASpringcourse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NewsRepository newsRepository;
 
     //1 - wyswietlenie usera o zadanym id (id pochodzi z listy userow z mocka)
 /*
@@ -65,9 +70,11 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("user");
 
         User user = userRepository.getById(userId);
+        List<News> userNewsList = newsRepository.getbyUserId(userId);
 
         System.out.println(userId);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("allNews", userNewsList);
 
         return modelAndView;
     }

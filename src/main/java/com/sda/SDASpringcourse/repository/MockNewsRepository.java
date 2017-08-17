@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by RENT on 2017-08-17.
@@ -23,6 +24,15 @@ public class MockNewsRepository implements NewsRepository {
     @Override
     public List<News> getAll() {
         return allNews;
+    }
+
+    @Override
+    public List<News> getbyUserId(Integer userId) {
+        List<News> collect = allNews.stream()
+                .filter(e -> e.getUserId().equals(userId))
+                .collect(Collectors.toList());
+
+        return collect;
     }
 
     @Override
