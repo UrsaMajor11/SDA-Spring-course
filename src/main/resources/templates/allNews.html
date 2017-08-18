@@ -78,7 +78,8 @@
             </div>
 
 
-            <div th:if="${!allNews.isEmpty()}">
+            <div th:include="fragments/news :: basic-news-table (allNews = ${allNews})" th:if="${!allNews.isEmpty()}">
+                <!-- podmieniony zostanie srodek tego diva, czyli od taga table -->
                 <!-- Table -->
                 <table class="table">
                     <thead>
@@ -88,17 +89,16 @@
                     <td>Link</td>
                     </thead>
                     <tbody>
-                    <tr th:each="news : ${allNews}">
+                    <tr>
                         <td>
                             <img style="width: 50px; height: 50px;"
-                                 th:src="${news.smallImgLink}"
                                  src="http://www.dailyworldfacts.com/wp-content/uploads/2011/06/facts-about-cat-fallen-cat.jpg"/>
                         </td>
                         <td>
-                            <p th:text="${news.title}">First Cat</p>
+                            <p>First Cat</p>
                         </td>
                         <td>
-                            <p th:text="${news.AbbreviateDescription}">Lorem ipsum dolor sit amet, consectetur
+                            <p>Lorem ipsum dolor sit amet, consectetur
                                 adipiscing
                                 elit,
                                 sed do eiusmod
@@ -113,7 +113,7 @@
                                 laborum</p>
                         </td>
                         <td>
-                            <a th:href="'/news/' + ${news.id}" href="#">Go to details</a>
+                            <a href="#">Go to details</a>
                         </td>
                     </tr>
                     </tbody>
