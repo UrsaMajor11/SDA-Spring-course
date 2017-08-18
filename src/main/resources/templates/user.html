@@ -134,7 +134,7 @@
 
     <hr/>
 
-    <form action="#" th:action="'test/users/' + ${user.id}" method="post" role="form">
+    <form action="#" th:action="'/test/users/' + ${user.id}" method="post" role="form">
         <legend>Dodawanie nowego newsa</legend>
 
         <input type="hidden" class="form-control" name="userId" id="userId" value="0" th:value="${user.id}">

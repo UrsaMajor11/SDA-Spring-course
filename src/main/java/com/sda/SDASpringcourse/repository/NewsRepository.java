@@ -15,4 +15,5 @@ public interface NewsRepository {
 
     News getById(Integer id);
 
+    boolean add(News news);
 }

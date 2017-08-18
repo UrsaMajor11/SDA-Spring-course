@@ -40,6 +40,16 @@ public class MockNewsRepository implements NewsRepository {
         return allNews.get(id);
     }
 
+    @Override
+    public boolean add(News news) {
+        //ustalam id dla nowego newsa, jako wielkosc listy (dodajemy na koncu listy)
+        news.setId(allNews.size()); //błędogenne w przypadku usuwania jakis newsow (bo najpierw usuniemy, rozmiar sie zmniejszy i podstawimy nowy element w miejsce ostatniego, ktory w tymmomencie istnieje)
+
+        allNews.add(news);
+
+        return true; //za kazdym razem, celowo
+    }
+
     @PostConstruct
     public void init() {
         News news0 = new News(0, "Zamach w Barcelonie 0", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +

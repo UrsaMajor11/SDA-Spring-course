@@ -6,9 +6,7 @@ import com.sda.SDASpringcourse.repository.NewsRepository;
 import com.sda.SDASpringcourse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -79,6 +77,24 @@ public class UserController {
         return modelAndView;
     }
 
+    //5 - dodawanie nowego newsa z poziomu strony danego usera (metoda POST)
 
+    @PostMapping(value = "/{userId}") //dla sciezki "/test/users/{userId}"
+    public ModelAndView addNewsForUser(@ModelAttribute News news, @PathVariable("userId") Integer userId) {
+        ModelAndView modelAndView = new ModelAndView("user");
+
+        boolean creationStatus = newsRepository.add(news);
+
+        User user = userRepository.getById(userId);
+        List<News> userNewsList = newsRepository.getbyUserId(userId);
+
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("allNews", userNewsList);
+        modelAndView.addObject("creationStatus", creationStatus);
+        modelAndView.addObject("creationSuccessMessage", "Sukces");
+        modelAndView.addObject("creationErrorMessage", "Porazka");
+
+        return modelAndView;
+    }
 
 }
