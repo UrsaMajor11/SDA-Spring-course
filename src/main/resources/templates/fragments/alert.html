@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="alert (message, type)">
+    <!--message - sluzy do podmiany tekstu w h1-->
+    <!--type - przesłanie type spowoduje DODANIE kolejnej klasycss-owej do naszego diva (za dodawanie kolejnej klasy odpowiada dyrektywa classappend)-->
+    <div class="alert" th:classappend="'alert-' + ${type}">
+        <h1 th:text="${message}">Alert message...</h1>
+    </div>
+</div>
+
+</body>
+</html>
