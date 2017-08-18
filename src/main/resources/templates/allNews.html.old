@@ -5,32 +5,14 @@
     <title>Hello world!</title>
 </head>
 <body>
-<h1>Widok pojedynczego użytkownika...</h1>
+<h1>Poniżej lista wszystkich newsów...</h1>
 
 <a th:href="'/news'" href="#">Powrót do listy newsów</a>
 <br/>
 <a th:href="'/test/users'" href="#">Powrót do listy userów</a>
 
 <hr/>
-<!--/*@thymesVar id="user" type="com.sda.SDASpringcourse.model.User"*/-->
-<div th:if="${user}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial, w przeciwnym razie przy probie wyswietlenia dostaniemu null pointer exception -->
-    <h2 th:text="${user.firstName} + ' ' + ${user.lastName}">First Name and Last Name</h2>
-    <p th:text="${user.phoneNumber}">Phone Number</p>
-</div>
-
-
-<hr/>
-
-
-
-
 <div th:if="${allNews}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial-->
-
-
-    <div th:if="${allNews.isEmpty()}">Ten uzytkownik nie utworzył jeszcze żadnych newsów...</div>
-
-    <!--<div th:if="${!allNews.isEmpty()}"> ponizej znajduje sie taki jakby else od if-a -->
-    <div th:unless="${allNews.isEmpty()}"> <!-- unless = if not, czyli warunek ten sam jakw if-ie, ale kod zawarty wykona sie jesliwarunek NIE zostanie spelniony -->
 
     <table border="1">
         <thead style="font-weight: bold;">
@@ -63,13 +45,9 @@
         </tbody>
     </table>
 
-        </div>
-
 
 
 </div>
-
-
 
 
 </body>
