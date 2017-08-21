@@ -15,4 +15,5 @@ public interface UserRepository {
 
     User getById(Integer id);
 
+    boolean add(User user);
 }

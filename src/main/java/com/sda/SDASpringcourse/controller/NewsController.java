@@ -4,6 +4,7 @@ import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class NewsController {
 
     //1 - wyswietlenie wszystkich newsow
 
-    @RequestMapping
+    @GetMapping
     public ModelAndView allNews() {
         ModelAndView modelAndView = new ModelAndView("allNews");
 
@@ -37,7 +38,7 @@ public class NewsController {
 
     //2 - wyswietlenie zadanego newsa po parametrze w adresie
 
-    @RequestMapping(value = "/{newsId}")
+    @GetMapping(value = "/{newsId}")
     public ModelAndView newsById(@PathVariable("newsId") String newsId) {
         ModelAndView modelAndView = new ModelAndView("news");
 

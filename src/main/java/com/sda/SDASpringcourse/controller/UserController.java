@@ -42,7 +42,7 @@ public class UserController {
 */
     //2 - wyswietlenie wszystkich userow
 
-    @RequestMapping //dla sciezki "/users"
+    @GetMapping //dla sciezki "/users"
     public ModelAndView allUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
 
@@ -55,7 +55,7 @@ public class UserController {
 
     //3 - wyswietlenie wszystkich userow o nazwisku rozpoczynajacym sie od przekazanego parametru
 
-    @RequestMapping(params = {"lastname"}) //dla sciezki "/users?lastname=cokolwiek"
+    @GetMapping(params = {"lastname"}) //dla sciezki "/users?lastname=cokolwiek"
     public ModelAndView allUsersByLastName(@RequestParam(value = "lastname") String lastname) {
         ModelAndView modelAndView = new ModelAndView("users");
 
@@ -68,7 +68,7 @@ public class UserController {
 
     //4 - wyswietlenie usera o zadanym id (id pochodzi z listy userow z mocka) - analogiczne do pierwszego
 
-    @RequestMapping(value = "/{userId}") //dla sciezki "/users/{userId}"
+    @GetMapping(value = "/{userId}") //dla sciezki "/users/{userId}"
     public ModelAndView specifiedUser(@PathVariable("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("user");
 
@@ -102,6 +102,28 @@ public class UserController {
         modelAndView.addObject("status", status);
         modelAndView.addObject("user", user);
         modelAndView.addObject("allNews", userNewsList);
+
+        return modelAndView;
+    }
+
+    //6 - dodawanie nowego usera z poziomu strony z lista wszystkich userow
+
+    @PostMapping //dla sciezki "/users", tak jak w drugim enpoincie (metoda POST)
+    public ModelAndView addNewUser(@ModelAttribute User user) {
+        ModelAndView modelAndView = new ModelAndView("users");
+
+        //tutaj odbywa sie dodanie usera
+        boolean result = userRepository.add(user);
+
+        CreationStatus status =
+                result ? creationStatusFactory.createSuccessStatus("Poprawnie dodano nowego usera...")
+                        : creationStatusFactory.createFailureStatus("Wystąpił błąd podczas zapisywania nowego usera...");
+
+        List<User> all = userRepository.getAll();
+
+        //wyslanie zmiennych na front
+        modelAndView.addObject("status", status);
+        modelAndView.addObject("allUsers", all);
 
         return modelAndView;
     }

@@ -12,6 +12,9 @@ public class User {
     private String lastName;
     private String phoneNumber;
 
+    public User() {
+    }
+
     public User(Integer id, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
@@ -33,5 +36,21 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

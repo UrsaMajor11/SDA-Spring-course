@@ -41,6 +41,16 @@ public class MockUserRepository implements UserRepository {
         return users.get(id);
     }
 
+    @Override
+    public boolean add(User user) {
+        //ustalam id dla nowego newsa, jako wielkosc listy (dodajemy na koncu listy)
+        user.setId(users.size()); //błędogenne w przypadku usuwania jakis newsow (bo najpierw usuniemy, rozmiar sie zmniejszy i podstawimy nowy element w miejsce ostatniego, ktory w tymmomencie istnieje)
+
+        users.add(user);
+
+        return true; //za kazdym razem, celowo
+    }
+
     //tak oadnotowana metoda zostanie uruchomiona tuz po utworzeniu obiektu tej klasy przez Springa
     //zapełni ona liste userow mockowymi danymi
     @PostConstruct

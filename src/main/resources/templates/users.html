@@ -65,6 +65,14 @@
 
     <hr/>
 
+    <!--status w przypadku gdy user probowal dodac nowego usera-->
+    <div th:if="${status}"> <!-- spowoduje wyswietlenie tego diva, tlyko jesli zmienna status przyjdzie -->
+        <!--tutaj robimy replace, czyli calyponizszy div zostanie podmieniony, a nie jedynie jego bebechy jak to bylo przy include-->
+        <div th:replace="fragments/alert :: creationStatus-alert2 (statusObject=${status})">
+            Wiadomość do użytkownika...
+        </div>
+    </div>
+
     <div th:if="${allUsers}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial-->
 
         <div class="panel panel-default">
@@ -109,6 +117,28 @@
         </div>
 
     </div>
+
+
+    <form action="#" th:action="'/users'" method="post" role="form">
+        <legend>Dodawanie nowego użytkownika</legend>
+
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Input here...">
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Input here...">
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Input here...">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
 
 </div><!-- /.container -->
