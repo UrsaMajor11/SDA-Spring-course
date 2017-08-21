@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/test/users") //to bedzie doklejonez przodku kazdej path przy endpoincie
+@RequestMapping(path = "/users") //to bedzie doklejonez przodku kazdej path przy endpoincie
 public class UserController {
 
     @Autowired
