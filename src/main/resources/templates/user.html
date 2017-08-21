@@ -73,6 +73,14 @@
 
     <hr/>
 
+    <!--status w przypadku gdy user probowal dodac nowego newsa-->
+    <div th:if="${status}"> <!-- spowoduje wyswietlenie tego diva, tlyko jesli zmienna status przyjdzie -->
+        <!--tutaj robimy replace, czyli calyponizszy div zostanie podmieniony, a nie jedynie jego bebechy jak to bylo przy include-->
+        <div th:replace="fragments/alert :: creationStatus-alert2 (statusObject=${status})">
+            Wiadomość do użytkownika...
+        </div>
+    </div>
+
 
     <div th:if="${allNews}"> <!-- spowoduje wyswietlenie tego diva, tlyko jest user bedzie istnial-->
 

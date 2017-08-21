@@ -1,5 +1,7 @@
 package com.sda.SDASpringcourse.controller;
 
+import com.sda.SDASpringcourse.model.CreationStatus;
+import com.sda.SDASpringcourse.model.CreationStatusFactory;
 import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.model.User;
 import com.sda.SDASpringcourse.repository.NewsRepository;
@@ -21,6 +23,9 @@ public class UserController {
     @Autowired
     private NewsRepository newsRepository;
 
+    @Autowired
+    CreationStatusFactory creationStatusFactory;
+
     //1 - wyswietlenie usera o zadanym id (id pochodzi z listy userow z mocka)
 /*
     @RequestMapping(value = "/user/{userId}") //przekazywanie parametru inna metoda
@@ -37,7 +42,7 @@ public class UserController {
 */
     //2 - wyswietlenie wszystkich userow
 
-    @RequestMapping //dla sciezki "/test/users"
+    @RequestMapping //dla sciezki "/users"
     public ModelAndView allUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
 
@@ -50,7 +55,7 @@ public class UserController {
 
     //3 - wyswietlenie wszystkich userow o nazwisku rozpoczynajacym sie od przekazanego parametru
 
-    @RequestMapping(params = {"lastname"}) //dla sciezki "/test/users?lastname=cokolwiek"
+    @RequestMapping(params = {"lastname"}) //dla sciezki "/users?lastname=cokolwiek"
     public ModelAndView allUsersByLastName(@RequestParam(value = "lastname") String lastname) {
         ModelAndView modelAndView = new ModelAndView("users");
 
@@ -63,7 +68,7 @@ public class UserController {
 
     //4 - wyswietlenie usera o zadanym id (id pochodzi z listy userow z mocka) - analogiczne do pierwszego
 
-    @RequestMapping(value = "/{userId}") //dla sciezki "/test/users/{userId}"
+    @RequestMapping(value = "/{userId}") //dla sciezki "/users/{userId}"
     public ModelAndView specifiedUser(@PathVariable("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("user");
 
@@ -79,20 +84,24 @@ public class UserController {
 
     //5 - dodawanie nowego newsa z poziomu strony danego usera (metoda POST)
 
-    @PostMapping(value = "/{userId}") //dla sciezki "/test/users/{userId}"
+    @PostMapping(value = "/{userId}") //dla sciezki "/users/{userId}"
     public ModelAndView addNewsForUser(@ModelAttribute News news, @PathVariable("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("user");
 
-        boolean creationStatus = newsRepository.add(news);
+        //tutaj odbywa sie dodanie newsa
+        boolean result = newsRepository.add(news);
 
         User user = userRepository.getById(userId);
         List<News> userNewsList = newsRepository.getbyUserId(userId);
 
+        CreationStatus status =
+                result ? creationStatusFactory.createSuccessStatus("Poprawnie dodano nowy news...")
+                        : creationStatusFactory.createFailureStatus("Wystąpił błąd podczas zapisywania newsa...");
+
+        //wyslanie zmiennych na front
+        modelAndView.addObject("status", status);
         modelAndView.addObject("user", user);
         modelAndView.addObject("allNews", userNewsList);
-        modelAndView.addObject("creationStatus", creationStatus);
-        modelAndView.addObject("creationSuccessMessage", "Sukces");
-        modelAndView.addObject("creationErrorMessage", "Porazka");
 
         return modelAndView;
     }
