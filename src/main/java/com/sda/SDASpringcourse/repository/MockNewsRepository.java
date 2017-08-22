@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,14 @@ public class MockNewsRepository implements NewsRepository {
         allNews.add(news);
 
         return true; //za kazdym razem, celowo
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+
+        //allNews.add(id, null); //na indeksie id podstawiamy nulla - celowo chcemy miecdziury w liscie
+        allNews.remove(id.intValue());
+        return true;
     }
 
     @PostConstruct

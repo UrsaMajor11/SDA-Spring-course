@@ -4,10 +4,7 @@ import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,7 +22,7 @@ public class NewsController {
 
     //1 - wyswietlenie wszystkich newsow
 
-    @GetMapping
+    @GetMapping  //dla sciezki "/news"
     public ModelAndView allNews() {
         ModelAndView modelAndView = new ModelAndView("allNews");
 
@@ -38,7 +35,7 @@ public class NewsController {
 
     //2 - wyswietlenie zadanego newsa po parametrze w adresie
 
-    @GetMapping(value = "/{newsId}")
+    @GetMapping(value = "/{newsId}") //dla sciezki "/news/{id}"
     public ModelAndView newsById(@PathVariable("newsId") String newsId) {
         ModelAndView modelAndView = new ModelAndView("news");
 
@@ -47,6 +44,24 @@ public class NewsController {
         modelAndView.addObject("singleNews", byId);
 
         return modelAndView;
+    }
+
+    //3 - usuniecie zadanego newsa po parametrze w adresie (metoda DELETE)
+    @DeleteMapping(value = "/{newsId}")
+    public String deleteNewsById(@PathVariable("newsId") String newsId) {
+
+        boolean result = newsRepository.delete(Integer.valueOf(newsId));
+
+        return "redirect:/news";
+    }
+
+    //4 - usuniecie zadanego newsa po parametrze w adresie (metoda POST) (wersja prostrza endpointu 3)
+    @PostMapping(value = "/{newsId}/delete")
+    public String deleteNewsById2(@PathVariable("newsId") String newsId) {
+
+        boolean result = newsRepository.delete(Integer.valueOf(newsId));
+
+        return "redirect:/news/";
     }
 
 }
