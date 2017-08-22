@@ -30,7 +30,7 @@ public class MockNewsRepository implements NewsRepository {
     @Override
     public List<News> getbyUserId(Integer userId) {
         List<News> collect = allNews.stream()
-                .filter(e -> e.getUserId().equals(userId))
+                //.filter(e -> e.getUserId().equals(userId))
                 .collect(Collectors.toList());
 
         return collect;
@@ -61,6 +61,7 @@ public class MockNewsRepository implements NewsRepository {
 
     @PostConstruct
     public void init() {
+        /* dla starego NewsRepository
         News news0 = new News(0, "Zamach w Barcelonie 0", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
                 "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip " +
@@ -92,5 +93,6 @@ public class MockNewsRepository implements NewsRepository {
         allNews.add(news0);
         allNews.add(news1);
         allNews.add(news2);
+        */
     }
 }

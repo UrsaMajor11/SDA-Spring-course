@@ -1,6 +1,7 @@
 package com.sda.SDASpringcourse.controller;
 
 import com.sda.SDASpringcourse.model.News;
+import com.sda.SDASpringcourse.repository.JpaNewsRepository;
 import com.sda.SDASpringcourse.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,8 @@ import java.util.List;
 public class NewsController {
 
     @Autowired
-    NewsRepository newsRepository;
+    //NewsRepository newsRepository; stare
+    JpaNewsRepository newsRepository;
 
     //1 - wyswietlenie wszystkich newsow
 
@@ -26,7 +28,8 @@ public class NewsController {
     public ModelAndView allNews() {
         ModelAndView modelAndView = new ModelAndView("allNews");
 
-        List<News> all = newsRepository.getAll();
+        //List<News> all = newsRepository.getAll(); stare
+        Iterable<News> all = newsRepository.findAll();
 
         modelAndView.addObject("allNews", all);
 
@@ -39,7 +42,8 @@ public class NewsController {
     public ModelAndView newsById(@PathVariable("newsId") String newsId) {
         ModelAndView modelAndView = new ModelAndView("news");
 
-        News byId = newsRepository.getById(Integer.valueOf(newsId));
+        //News byId = newsRepository.getById(Integer.valueOf(newsId)); stare
+        News byId = newsRepository.findOne(Integer.valueOf(newsId));
 
         modelAndView.addObject("singleNews", byId);
 
@@ -50,7 +54,8 @@ public class NewsController {
     @DeleteMapping(value = "/{newsId}")
     public String deleteNewsById(@PathVariable("newsId") String newsId) {
 
-        boolean result = newsRepository.delete(Integer.valueOf(newsId));
+        // boolean result = newsRepository.delete(Integer.valueOf(newsId)); //stare
+        newsRepository.delete(Integer.valueOf(newsId));
 
         return "redirect:/news";
     }
@@ -59,7 +64,8 @@ public class NewsController {
     @PostMapping(value = "/{newsId}/delete")
     public String deleteNewsById2(@PathVariable("newsId") String newsId) {
 
-        boolean result = newsRepository.delete(Integer.valueOf(newsId));
+        //boolean result = newsRepository.delete(Integer.valueOf(newsId)); stare
+        newsRepository.delete(Integer.valueOf(newsId));
 
         return "redirect:/news/";
     }

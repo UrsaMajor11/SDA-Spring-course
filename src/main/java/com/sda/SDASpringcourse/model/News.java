@@ -2,33 +2,40 @@ package com.sda.SDASpringcourse.model;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.*;
+
 /**
  * Created by RENT on 2017-08-17.
  */
+
+@Entity(name = "newsTable")
 public class News {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String title;
 
+    @Column(length = 1024)
     private String description;
 
     private String smallImgLink;
 
     private String bigImgLink;
 
-    private Integer userId;
+    @ManyToOne
+    private User user;
 
     public News() {
     }
 
-    public News(Integer id, String title, String description, String smallImgLink, String bigImgLink, Integer userId) {
-        this.id = id;
+    public News(String title, String description, String smallImgLink, String bigImgLink, User user) {
         this.title = title;
         this.description = description;
         this.smallImgLink = smallImgLink;
         this.bigImgLink = bigImgLink;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -71,12 +78,12 @@ public class News {
         this.bigImgLink = bigImgLink;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //moj dodatkowy setter - zwraca skrocony opis

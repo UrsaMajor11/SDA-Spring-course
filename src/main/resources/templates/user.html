@@ -145,7 +145,7 @@
     <form action="#" th:action="'/users/' + ${user.id}" method="post" role="form">
         <legend>Dodawanie nowego newsa</legend>
 
-        <input type="hidden" class="form-control" name="userId" id="userId" value="0" th:value="${user.id}">
+        <input type="hidden" class="form-control" name="user" id="user" value="0" th:value="${user.id}">
 
         <div class="form-group">
             <label for="title">Title</label>

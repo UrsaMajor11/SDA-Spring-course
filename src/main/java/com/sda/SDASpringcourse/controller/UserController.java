@@ -4,6 +4,7 @@ import com.sda.SDASpringcourse.model.CreationStatus;
 import com.sda.SDASpringcourse.model.CreationStatusFactory;
 import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.model.User;
+import com.sda.SDASpringcourse.repository.JpaNewsRepository;
 import com.sda.SDASpringcourse.repository.JpaUserRepository;
 import com.sda.SDASpringcourse.repository.NewsRepository;
 import com.sda.SDASpringcourse.repository.UserRepository;
@@ -23,7 +24,8 @@ public class UserController {
     private JpaUserRepository userRepository;
 
     @Autowired
-    private NewsRepository newsRepository;
+    //private NewsRepository newsRepository; stare NewsRepository
+    private JpaNewsRepository newsRepository;
 
     @Autowired
     CreationStatusFactory creationStatusFactory;
@@ -78,7 +80,9 @@ public class UserController {
 
         //User user = userRepository.getById(userId); dla starego UserRepository
         User user = userRepository.findOne(userId);
-        List<News> userNewsList = newsRepository.getbyUserId(userId);
+
+        //List<News> userNewsList = newsRepository.getbyUserId(userId); dla starego NewsRepository
+        List<News> userNewsList = newsRepository.findByUser(user);
 
         System.out.println(userId);
         modelAndView.addObject("user", user);
@@ -93,12 +97,22 @@ public class UserController {
     public ModelAndView addNewsForUser(@ModelAttribute News news, @PathVariable("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("user");
 
-        //tutaj odbywa sie dodanie newsa
-        boolean result = newsRepository.add(news);
-
         //User user = userRepository.getById(userId); dla starego UserRepository
         User user = userRepository.findOne(userId);
-        List<News> userNewsList = newsRepository.getbyUserId(userId);
+
+        //tutaj odbywa sie dodanie newsa
+        //boolean result = newsRepository.add(news); dla starego NewsRepository
+        //news.setUser(user); ////to dla nowego  nowemu newsowitrzeba ustawic wlasciciela
+        //jednak nie trzeba ustawiac wlasciciela-usera, bo spring jest madry i na podstawie id, ktore przyjdzie z hidden input
+        //w formularzu sam pobierze sobie odpowiedniego usera
+        newsRepository.save(news); //to dla nowego
+        boolean result = true; //to dla nowego
+
+
+
+
+        //List<News> userNewsList = newsRepository.getbyUserId(userId); dla starego NewsRepository
+        List<News> userNewsList = newsRepository.findByUser(user);
 
         CreationStatus status =
                 result ? creationStatusFactory.createSuccessStatus("Poprawnie dodano nowy news...")
