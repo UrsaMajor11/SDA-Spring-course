@@ -4,6 +4,7 @@ import com.sda.SDASpringcourse.model.CreationStatus;
 import com.sda.SDASpringcourse.model.CreationStatusFactory;
 import com.sda.SDASpringcourse.model.News;
 import com.sda.SDASpringcourse.model.User;
+import com.sda.SDASpringcourse.repository.JpaUserRepository;
 import com.sda.SDASpringcourse.repository.NewsRepository;
 import com.sda.SDASpringcourse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    //private UserRepository userRepository; stare UserRepository
+    private JpaUserRepository userRepository;
 
     @Autowired
     private NewsRepository newsRepository;
@@ -46,7 +48,8 @@ public class UserController {
     public ModelAndView allUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
 
-        List<User> all = userRepository.getAll();
+        //List<User> all = userRepository.getAll(); dla starego UserRepository
+        Iterable<User> all = userRepository.findAll();
 
         modelAndView.addObject("allUsers", all);
 
@@ -59,7 +62,8 @@ public class UserController {
     public ModelAndView allUsersByLastName(@RequestParam(value = "lastname") String lastname) {
         ModelAndView modelAndView = new ModelAndView("users");
 
-        List<User> allByLastName = userRepository.getAllByLastName(lastname);
+        //List<User> allByLastName = userRepository.getAllByLastName(lastname); dla starego UserRepository
+        List<User> allByLastName = userRepository.findByLastName(lastname);
 
         modelAndView.addObject("allUsers", allByLastName);
 
@@ -72,7 +76,8 @@ public class UserController {
     public ModelAndView specifiedUser(@PathVariable("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("user");
 
-        User user = userRepository.getById(userId);
+        //User user = userRepository.getById(userId); dla starego UserRepository
+        User user = userRepository.findOne(userId);
         List<News> userNewsList = newsRepository.getbyUserId(userId);
 
         System.out.println(userId);
@@ -91,7 +96,8 @@ public class UserController {
         //tutaj odbywa sie dodanie newsa
         boolean result = newsRepository.add(news);
 
-        User user = userRepository.getById(userId);
+        //User user = userRepository.getById(userId); dla starego UserRepository
+        User user = userRepository.findOne(userId);
         List<News> userNewsList = newsRepository.getbyUserId(userId);
 
         CreationStatus status =
@@ -113,13 +119,17 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("users");
 
         //tutaj odbywa sie dodanie usera
-        boolean result = userRepository.add(user);
+        //boolean result = userRepository.add(user); dla starego UserRepository
+
+        userRepository.save(user);
+        boolean result = true;
 
         CreationStatus status =
                 result ? creationStatusFactory.createSuccessStatus("Poprawnie dodano nowego usera...")
                         : creationStatusFactory.createFailureStatus("Wystąpił błąd podczas zapisywania nowego usera...");
 
-        List<User> all = userRepository.getAll();
+        //List<User> all = userRepository.getAll(); dla starego UserRepository
+        Iterable<User> all = userRepository.findAll();
 
         //wyslanie zmiennych na front
         modelAndView.addObject("status", status);
