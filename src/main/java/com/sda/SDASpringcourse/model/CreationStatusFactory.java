@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
  * Created by RENT on 2017-08-21.
  */
 
+//fabryka do tworzenia różnych predefiniowanych obiektów klasy CreationStatus
+
 @Component
 public class CreationStatusFactory {
 

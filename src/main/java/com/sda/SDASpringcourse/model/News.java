@@ -24,12 +24,14 @@ public class News {
 
     private String bigImgLink;
 
-    @ManyToOne
+    @ManyToOne //bo wiele newsow moze byc przypisanych do jednego usera
     private User user;
 
+    //konstruktor
     public News() {
     }
 
+    //konstruktor z ktorego skorzystamy podczas dodawania nowego newsa
     public News(String title, String description, String smallImgLink, String bigImgLink, User user) {
         this.title = title;
         this.description = description;
@@ -86,7 +88,7 @@ public class News {
         this.user = user;
     }
 
-    //moj dodatkowy setter - zwraca skrocony opis
+    //moj dodatkowy getter - zwraca skrocony opis
     public String getAbbreviateDescription() {
         return StringUtils.abbreviate(this.description, 50);
     }

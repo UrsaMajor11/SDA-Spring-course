@@ -3,6 +3,10 @@ package com.sda.SDASpringcourse.model;
 /**
  * Created by RENT on 2017-08-21.
  */
+
+//klasa pomocnicza, do budowania obiektu, ktory bedzie okreslał czy jakaś operacja zakonczyla sie sukcesem, czy nie, oraz odpowednia informacja
+//odnośnie wyniku operacji
+
 public class CreationStatus {
 
     private boolean status;

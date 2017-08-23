@@ -26,9 +26,11 @@ public class User {
 
     private String phoneNumber;
 
+    //konstruktor
     public User() {
     }
 
+    //konstruktor
     public User(Integer id, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
@@ -36,6 +38,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    //konstruktor używany przy dodawaniu nowych userów
     public User(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -13,7 +13,9 @@ public interface JpaNewsRepository extends CrudRepository<News, Integer> {
 
     //CrudRepository<User, Integer> -> to interfejs, ktory podaje zbior metod zwiazanych z create, read, update, delete
 
-    //NIE BEDZIEMY TOWRZYC IMPKLEMENTACJI TEGO INTERFEJSU - SPRING SAM GO DOSTARCZY
+    //NIE BEDZIEMY TOWRZYC IMPKLEMENTACJI TEGO INTERFEJSU - SPRING SAM GO DOSTARCZY !!!
 
+    //dodajemy sygnature metody pobierajacej newsy po zadanym userze
+    //nie bedziemy dostarczac jej implementacji - spring sam ja dostaarczy !!!
     List<News> findByUser(User user);
 }

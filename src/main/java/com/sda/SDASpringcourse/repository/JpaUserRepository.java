@@ -15,7 +15,8 @@ public interface JpaUserRepository extends CrudRepository<User, Integer> {
     //NIE BEDZIEMY TOWRZYC IMPKLEMENTACJI TEGO INTERFEJSU - SPRING SAM GO DOSTARCZY
 
 
-    List<User> findByLastName(String lastName); //te metode tez dostarczy spring
+    List<User> findByLastName(String lastName);
+    //te metode tez dostarczy spring
     //potrzebujemy jej w ktoryms endpoincie w userController
     //nazwa metody jest znaczaca - mowi ona springowi co i po jakim polu ma szukac!!!
     //sygnatura tej metody mówi: napisz metode zwracajaca liste Userow wyszukujac ich po kolumnie lastName
