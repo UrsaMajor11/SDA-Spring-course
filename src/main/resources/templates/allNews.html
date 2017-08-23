@@ -132,9 +132,9 @@
 <script type="application/javascript">
     $(".news-delete").on('click', function() {
         var id = $(this).attr('id');
-        debugger;
+        //debugger;
         $.ajax({
-            url: '/news/0',
+            url: '/news/' + id,
             method: 'DELETE'
         })
                 .done(function( data ) {

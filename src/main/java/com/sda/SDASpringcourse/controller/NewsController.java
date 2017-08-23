@@ -48,11 +48,13 @@ public class NewsController {
     //3 - usuniecie zadanego newsa po parametrze w adresie (metoda DELETE)
 
     @DeleteMapping(value = "/{newsId}")
-    public String deleteNewsByIdByDeleteMethod(@PathVariable("newsId") String newsId) {
-
+    public @ResponseBody String deleteNewsByIdByDeleteMethod(@PathVariable("newsId") String newsId) {
+        System.out.println("WSZEDLEM TUTAJ");
         newsRepository.delete(Integer.valueOf(newsId));
 
-        return "redirect:/news";
+
+        System.out.println("PRZED REDIRECT");
+        return "redirect:/news/";
     }
 
     //4 - usuniecie zadanego newsa po parametrze w adresie (metoda POST) (wersja prostrza endpointu 3)
